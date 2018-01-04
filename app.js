@@ -17,10 +17,10 @@ onerror(app)
 // middlewares
 app.use(bodyparser({enableTypes:['json', 'form', 'text']}))
 app.use(json())
-app.use(logger())
+if(process.env.NODE_ENV === 'development') app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'))
 
-app.use(views(__dirname + '/views', {extension: 'pug'}))
+app.use(views(__dirname + '/views', {extension: 'html',map: {html: 'nunjucks'}}))
 
 // logger
 app.use(async (ctx, next) => {
@@ -36,9 +36,11 @@ app.use(home.routes())
 // app.use(index.routes(), index.allowedMethods())
 // app.use(users.routes(), users.allowedMethods())
 
+
 // error-handling
-app.on('error', (err, ctx) => {
+app.on('error', async (err, ctx) => {
   console.error('server error', err, ctx)
+  
 });
 
 module.exports = app

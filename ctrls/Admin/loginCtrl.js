@@ -5,7 +5,10 @@ class IndexCtrl extends BaseCtrl{
         super();
     }
     async index(){
-        await this.render('admin/index')
+        await this.render('admin/login/login')
+    }
+    async register(){
+        await this.render('admin/login/register')
     }
 }
 

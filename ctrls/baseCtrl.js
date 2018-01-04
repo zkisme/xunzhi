@@ -18,6 +18,9 @@ class BaseCtrl {
         if(type) this.ctx.type = type;
         this.ctx.body = data;
     }
+    async render(view, data){
+        await this.ctx.render(view, data);
+    }
 }
 
 module.exports = BaseCtrl;
